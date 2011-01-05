@@ -29,6 +29,6 @@ class Outlet(models.Model):
     
     objects = models.GeoManager()
     
-    def __unicode_(self):
+    def __unicode__(self):
         return '%s' % (self.outlet_name)
     

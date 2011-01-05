@@ -23,7 +23,7 @@ from django.contrib.auth.views import redirect_to_login
 from django.contrib.auth.forms import AdminPasswordChangeForm
 from django.contrib.auth.models import User 
 from django.contrib.contenttypes.models import ContentType
-
+from django.utils import simplejson
 
 from rapidsms.webui.utils import render_to_response, paginated
 
@@ -48,8 +48,11 @@ from reporters.utils import *
 from reporters.views import message, check_reporter_form, update_reporter
 from reporters.models import Reporter, PersistantBackend, PersistantConnection
 
+from survey_outlets.models import Outlet
+
 @login_and_domain_required
 def map(request):
     template_name="dashboard.html"
-    context = {}
+    outlets = Outlet.objects.all();
+    context = {'outlets': outlets,}
     return render_to_response(request,template_name, context)
