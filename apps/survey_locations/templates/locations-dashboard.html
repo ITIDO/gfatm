@@ -1,0 +1,110 @@
+{% extends base_template %}
+{% load pagination-tags %}
+
+{% block title %}Survey Locations{% endblock %}
+
+{% block page_stylesheets %}
+<link type="text/css" rel="stylesheet" href="/static/logger/stylesheets/logger.css" />
+{% endblock %}
+
+{% block content %}
+<!-- Regions -->
+<p>
+    {% if search_string %}
+    <a href="">Search for <span class="highlight">{{ r_search_string }}</span></a>{% endif %}
+</p>
+<div class="span-12">
+<form method="get" id="search">
+    <input name="qr" type="text" value="{{ r_search_string }}" />
+    <input type="submit" value="Search" />
+</form>
+</div>
+<table class="sortable">
+  {% for r_column, r_display in r_columns %}
+    <col{% ifequal r_column r_sort_column %} class="sorted"{% endifequal %} />
+  {% endfor %}
+
+  <thead>
+    {% for r_column, r_display in r_columns %}
+      {% ifequal r_column r_sort_column %}
+        <th class="sorted {% if r_sort_descending %}descending{% else %}ascending{% endif %}">
+          <a href="?qr={{ r_search_string }}&sort_descending={% if r_sort_descending %}false{% else %}true{% endif %}&sort_column={{ r_column }}" title="Sort by {{ r_display }}{% if r_sort_descending %} (asc){% endif %}">
+            {{ r_display }}
+          </a>
+        </th>
+        <!-- extra table header -->
+      {% else %}
+        <th><a href="?qr={{ r_search_string }}&sort_column={{ r_column }}" title="Sort by {{ r_display }}">{{ r_display }}</a></th>
+      {% endifequal %}
+    {% endfor%}
+        </thead>
+
+
+  <tbody>
+    {% for region in regions.object_list %}
+      <tr class="{% cycle 'row_even' 'row_odd' %}">
+                                <td>{{region.name}}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+
+  <tfoot>
+    <tr>
+      <td colspan="5">
+        {% paginator regions %}
+      </td>
+    </tr>
+  </tfoot>
+
+</table>
+
+<!--  districts -->
+<p>
+    {% if search_string %}
+    <a href="">Search for <span class="highlight">{{ d_search_string }}</span></a>{% endif %}
+</p>
+<div class="span-12">
+<form method="get" id="search">
+    <input name="qd" type="text" value="{{ d_search_string }}" />
+    <input type="submit" value="Search" />
+</form>
+</div>
+<table class="sortable">
+  {% for r_column, d_display in d_columns %}
+    <col{% ifequal d_column d_sort_column %} class="sorted"{% endifequal %} />
+  {% endfor %}
+
+  <thead>
+    {% for d_column, d_display in d_columns %}
+      {% ifequal d_column d_sort_column %}
+        <th class="sorted {% if d_sort_descending %}descending{% else %}ascending{% endif %}">
+          <a href="?qr={{ d_search_string }}&sort_descending={% if d_sort_descending %}false{% else %}true{% endif %}&sort_column={{ d_column }}" title="Sort by {{ d_display }}{% if d_sort_descending %} (asc){% endif %}">
+            {{ d_display }}
+          </a>
+        </th>
+        <!-- extra table header -->
+      {% else %}
+        <th><a href="?qr={{ d_search_string }}&sort_column={{ d_column }}" title="Sort by {{ d_display }}">{{ d_display }}</a></th>
+      {% endifequal %}
+    {% endfor%}
+        </thead>
+
+
+  <tbody>
+    {% for district in districts.object_list %}
+      <tr class="{% cycle 'row_even' 'row_odd' %}">
+                                <td>{{district.name}}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+
+  <tfoot>
+    <tr>
+      <td colspan="5">
+        {% paginator districts %}
+      </td>
+    </tr>
+  </tfoot>
+
+</table>
+{% endblock %}

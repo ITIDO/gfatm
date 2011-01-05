@@ -1,0 +1,10 @@
+{% extends "hq/base.html" %}
+{% load i18n %}
+{% load hq_shared_tags %}
+{% load mainreport_tags %}
+{% block title %}{% trans "Map" %}{% endblock %}
+{% block org_content %}
+  <h1>Map</h1>
+  <div id='map'></div>
+
+{% endblock %}
