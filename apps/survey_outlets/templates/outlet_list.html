@@ -1,0 +1,50 @@
+{% extends base_template %}
+{% load pagination-tags %}
+
+{% block title %}Survey Outlets{% endblock %}
+
+{% block page_stylesheets %}
+<link type="text/css" rel="stylesheet" href="/static/logger/stylesheets/logger.css" />
+{% endblock %}
+
+{% block content %}
+
+<table class="sortable">
+    {% for column, display in columns %}
+      <col{% ifequal column sort_column %} class="sorted"{% endifequal %} />
+    {% endfor %}
+     <thead>
+      {% for column, display in columns %}
+        {% ifequal column sort_column %}
+          <th class="sorted {% if sort_descending %}descending{% else %}ascending{% endif %}">
+            <a href="?q={{ search_string }}&sort_descending={% if sort_descending %}false{% else %}true{% endif %}&sort_column={{ column }}" title="Sort by {{ display }}{% if sort_descending %} (asc){% endif %}">
+              {{ display }}
+            </a>
+          </th>
+          <!-- extra table header -->
+        {% else %}
+          <th><a href="?q={{ search_string }}&sort_column={{ column }}" title="Sort by {{ display }}">{{ display }}</a></th>
+      {% endifequal %}
+    {% endfor%}
+    </thead>
+<tbody>
+  {% for outlet in outlets.object_list  %}
+    <tr class="{% cycle 'odd' 'even' %}">
+      <td><a href="outlets/{{ outlet.id }}/details">{{outlet.outlet_name}}</a></td>
+      <td>{{outlet.owner_name}}</td>
+      <td>{{outlet.join_date }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+
+  <tfoot>
+    <tr>
+      <td colspan="5">
+        {% paginator outlets %} 
+      </td>
+    </tr>
+  </tfoot>
+
+</table>
+
+{% endblock %}

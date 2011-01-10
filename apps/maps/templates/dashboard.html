@@ -14,13 +14,13 @@
     
 <script  type="text/javascript">
     //stores all the outlets -- todo>>use json dump 
-    // var outletsByID = {};
-    // {% for outlet in outlets %}
-    //  outletByID[{{outlet.id}}] = {name: "{{outlet.name}}", 
-    //                               lat: {{outlet.point.y}},
-    //                               lng: {{outlet.point.x}},
-    //                               };
-    // {% endfor %}
+    var outletByID = {};
+    {% for outlet in outlets %}
+     outletByID[{{outlet.id}}] = {name: "{{outlet.name}}", 
+                                  lat: {{outlet.point.y}},
+                                  lng: {{outlet.point.x}},
+                                  };
+    {% endfor %}
 
     $(document).ready(function(){
         // initialise the google maps
@@ -32,19 +32,42 @@
         };
         var map = new google.maps.Map(document.getElementById("map"), myOptions);
         
-        // Adding markers
-        // var markers = [];
-        // count = 0;
-        // for (var i in outletByID){
-        //   outlet = outletByID[i];
-        //   pos = new google.maps.latlng(outlet.lat, outlet.lng);
-        //   var marker = new google.maps.Marker({
-        //     position: pos, 
-        //     map: map, 
-        //     title:"outlet.name"});
-        //     markers[count] = marker;
-        //     count++;
-        // }
+        //Adding markers
+        var markers = [];
+        count = 0;
+        for (var i in outletByID){
+          outlet = outletByID[i];
+          pos = new google.maps.LatLng(outlet.lat, outlet.lng);
+          var marker = new google.maps.Marker({
+            position: pos, 
+            map: map, 
+            title:outlet.name});
+            
+            markers[count] = marker;
+            count++;
+          }
+                    
+          
+          $(markers).each(function(i,marker){
+            google.maps.event.addListener(marker, 'click', function() {
+              
+              var contentString = '<div id="content">'+
+                                  '<div id="siteNotice">'+
+                                  '</div>'+
+                                  '<h1 id="firstHeading" class="firstHeading">Nancy Medical Service</h1>'+
+                                  '<div id="bodyContent">'+
+                                  '<p>Region: Morogoro </br>'+
+                                  'District: Mvomero </br>'+ 
+                                  '</p>'+
+                                  '</div>'+
+                                  '</div>';
+
+              var infowindow = new google.maps.InfoWindow({
+                  content: contentString
+              });
+              infowindow.open(map,marker);
+            });
+           });
         
     });
 </script>

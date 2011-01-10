@@ -20,7 +20,7 @@ class Question(models.Model):
                     )
     
     question = models.CharField(max_length = 256)
-    xmlPath = models.CharField(max_length = 256)
+    xmlPath = models.CharField(max_length = 256, help_text="xform node name")
     answer_type = models.CharField(max_length = 10, choices=ANSWER_TYPES)
     date_added = models.DateTimeField(default = datetime.now)
     

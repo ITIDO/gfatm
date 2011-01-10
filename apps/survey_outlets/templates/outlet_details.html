@@ -1,0 +1,36 @@
+{% extends base_template %}
+{% load pagination-tags %}
+
+{% block title %}Survey Outlets{% endblock %}
+
+{% block page_stylesheets %}
+<link type="text/css" rel="stylesheet" href="/static/logger/stylesheets/logger.css" />
+{% endblock %}
+
+{% block content %}
+
+<div id="stylized" class="myform">
+    <h1>{{ outlet.outlet_name }}</h1>
+    <p>Details</p>
+    
+    <div class="fieldWrapper">
+        <label>Name</label> 
+        <span class="small">Name of the outlet</span>
+        <h4>{{ outlet.outlet_name }}</h4>
+    </div>
+    <div class="fieldWrapper">
+        <label>Owner</label> 
+        <span class="small">Name of the owner</span>
+        <h4>{{ outlet.owner_name }}</h4>
+    </div>
+    
+    <div class="fieldWrapper">
+        <label>Join Date</label> 
+        <span class="small">Date the outlet joined</span>
+        <h4>{{ outlet.join_date }}</h4>
+    </div>
+        
+    <div class="spacer"></div>
+ </div>
+
+{% endblock %}

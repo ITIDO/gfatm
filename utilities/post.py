@@ -25,9 +25,10 @@ curl_command = 'curl' #make sure curl is in your path
 # but curl seems to be required for django to correctly handle multipart forms
 use_curl = False
 
-filename = os.path.join(os.getcwd(), 'test-data', 'intel_reg_new_case_id.xml')
+#filename = os.path.join(os.getcwd(), 'test-data', 'intel_reg_new_case_id.xml')
+filename = os.path.join(os.getcwd(), 'test-data', 'GFATM Outlet Release_2011-01-10_07-34-10.xml')
 
-domain_name = "grameen" # "demo"
+domain_name = "GFATM " #"grameen" # "demo"
 content_type = "text/xml"
 #content_type = "multipart/form-data; boundary=newdivider"
 
