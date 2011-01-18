@@ -12,5 +12,5 @@ admin.site.register(OutletType)
 class OutletAdmin(admin.OSMGeoAdmin):
 #    extra_js = [GMAP.api_url + GMAP.key]
 #    map_template = 'gis/admin/google.html'
-    search_fields = ('name','code')
+    search_fields = ('outlet_name',)
 admin.site.register(Outlet,OutletAdmin)

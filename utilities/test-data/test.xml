@@ -1,0 +1,41 @@
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa">
+  <h:head>
+    <h:title>Test CommcareHQ</h:title>
+    <model>
+      <instance>
+        <data id="test_form_1294915390" xmlns="www.itido.or.tz/test">
+          <firstName/>
+          <age/>
+        </data>
+      </instance>
+      <itext>
+        <translation lang="eng">
+          <text id="/data/firstName:label">
+            <value>Your first name</value>
+          </text>
+          <text id="/data/firstName:hint">
+            <value/>
+          </text>
+          <text id="/data/age:label">
+            <value>Your age</value>
+          </text>
+          <text id="/data/age:hint">
+            <value>in years!</value>
+          </text>
+        </translation>
+      </itext>
+      <bind nodeset="/data/firstName" type="string"/>
+      <bind nodeset="/data/age" type="int"/>
+    </model>
+  </h:head>
+  <h:body>
+    <input ref="/data/firstName">
+      <label ref="jr:itext('/data/firstName:label')"/>
+      <hint ref="jr:itext('/data/firstName:hint')"/>
+    </input>
+    <input ref="/data/age">
+      <label ref="jr:itext('/data/age:label')"/>
+      <hint ref="jr:itext('/data/age:hint')"/>
+    </input>
+  </h:body>
+</h:html>

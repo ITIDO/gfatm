@@ -176,7 +176,7 @@ class ElementDefModel(models.Model):
             return None
         else:
             raise Exception("Multiple values for id %s found in form %s" % (id, self ))
-            
+                   
     @property
     def column_count(self):
         '''Get the number of columns in this form's schema 
@@ -414,7 +414,12 @@ class FormDefModel(models.Model):
     @property
     def column_count(self):
         return self.element.column_count
-
+    
+    # added row_as_dict from another repo of commcare
+    def row_as_dict(self, id):
+        """Get a row as a dictionary, with the column names as keys"""
+        return dict(zip(self.get_column_names(), self.get_row(id)))
+    
 class Metadata(models.Model):
     # DO NOT change the name of these fields or attributes - they map to each other
     # in fact, you probably shouldn't even change the order

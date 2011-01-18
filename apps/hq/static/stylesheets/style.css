@@ -369,7 +369,7 @@ div.daterange_tabs  a {
 
 .myform{
 margin:0 auto;
-width:600px;
+width:300px;
 padding:14px;
 }
 
@@ -437,9 +437,8 @@ font-weight:bold;
 
 #stylized h4{
 float:left;
-font-size:12px;
+font-size:11px;
 padding:4px 2px;
-border:solid 1px #aacfe4;
-width:200px;
+width:180px;
 margin:2px 0 20px 10px;
 }

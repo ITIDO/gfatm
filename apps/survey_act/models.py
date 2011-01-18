@@ -15,10 +15,12 @@ class Manufacture(models.Model):
         return '%s' % (self.name,)
 
 class SubsidisedAct(models.Model):
-    ''' sub-sidised acts '''
+    ''' sub-sidised ACTS '''
     description = models.TextField()
     manufacture = models.ForeignKey(Manufacture)
     type = models.ForeignKey(Type)
-    
+#BRAND_NAME
+#GENERIC NAME
+#MANUFACTURE
     def __unicode__(self):
         return '%s - %s' % (self.description[:15], self.type) #just return part of description

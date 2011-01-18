@@ -1,0 +1,48 @@
+<?xml version='1.0' ?>
+<safe_pregnancy version="10" uiVersion="10"
+	xmlns:jrm="http://dev.commcarehq.org/jr/xforms" xmlns="http://dev.commcarehq.org/BRAC/CHP/Preg/Reg">
+	<Meta>
+		<DeviceID>588753OWUQODZAOCB49GIXBBE</DeviceID>
+		<TimeStart>2011-01-11T17:26:24.915</TimeStart>
+		<TimeEnd>2011-01-11T17:27:10.830</TimeEnd>
+		<username>TRY</username>
+		<uid>A5FDUGPL58GRM4CC0ZWY9ZFMW</uid>
+		<chw_id>UJFH13XFXBRW0IFJFXIU97T6L</chw_id>
+		<CommCareVersion>v1.1.0dev (e55215-7b28fe-unvers-??-Generic/AnyPhone)b:2011-Jan-11 r:--</CommCareVersion>
+	</Meta>
+	<case>
+		<case_id>JT8R35QFTJXJE4UAJKDDKBWAA</case_id>
+		<date_modified>2011-01-11T17:27:10.830</date_modified>
+		<create>
+			<case_type_id>cc_case_pregnancy</case_type_id>
+			<user_id>UJFH13XFXBRW0IFJFXIU97T6L</user_id>
+			<case_name>DAG</case_name>
+			<external_id>33</external_id>
+		</create>
+		<update>
+			<prp_edk>2011-05-12</prp_edk>
+			<prp_hrk>0</prp_hrk>
+		</update>
+	</case>
+	<household>33</household>
+	<phone />
+	<mother_name>DAG</mother_name>
+	<mother_age>22</mother_age>
+	<mother_education>more</mother_education>
+	<mother_height>over_150</mother_height>
+	<partner_name>MAT</partner_name>
+	<partner_age>22</partner_age>
+	<partner_education>0</partner_education>
+	<months_pregnant>5</months_pregnant>
+	<previous_pregnancies>1</previous_pregnancies>
+	<heart_problems>no</heart_problems>
+	<diabetes>no</diabetes>
+	<hip_problems>no</hip_problems>
+	<hiv_test>yes</hiv_test>
+	<hiv_willing>yes</hiv_willing>
+	<hiv_result>negative</hiv_result>
+	<syphilis_test>yes</syphilis_test>
+	<syphilis_willing>yes</syphilis_willing>
+	<syphilis_result>negative</syphilis_result>
+	<more_details>NA</more_details>
+</safe_pregnancy>

@@ -9,3 +9,30 @@ def _get_sort_info(request, default_sort_column, default_sort_descending):
         else:
             sort_descending = True
     return (sort_column, sort_descending)
+
+
+#def add_outlet(name, lng, lat):
+#    o = Outlet()
+#    o.outlet_name = name
+#    o.outlet_owner = "null"
+#    o.point = Point(lng,lat)
+#    o.save()
+#
+#
+#from xlrd import open_workbook
+#wb = open_workbook('/home/allen/Desktop/moro.xls')
+#s = wb.sheet_by_index(1)
+#for row in range(s.nrows):
+#    values = []
+#    for col in range(3,7):
+#        values.append(s.cell(row,col).value)
+#    name = values[0]
+#    lat = values[1]
+#    lng = values[2]
+#    if name != "interviewer_outlet" :
+#        if lat != 'null':
+#            if lng != 'null':
+#                lat = float(lat)
+#                lng = float(lng)
+#                add_outlet(name,lng,lat)
+#                print "%s (%s, %s)" % (name, lat, lng)

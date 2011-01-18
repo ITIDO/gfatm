@@ -3,7 +3,7 @@
     <h:title>GFATM Outlet Release</h:title>
     <model>
       <instance>
-        <data id="outletr_gfatm_10012011" xmlns="http://www.itido.or.tz">
+        <data id="outletr_gfatm_10012011" xmlns="http://www.itido.or.tz/outlet">
           <interviewer/>
           <region/>
           <district/>

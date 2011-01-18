@@ -1,54 +1,56 @@
 import httplib, urllib
-from threading import Thread
+#from threading import Thread
 from datetime import datetime
+from django.contrib.gis.geos import Point
 
-from django.db.models.signals import post_save
-
-from xformmanager.models import Metadata
-from reporters.models import Reporter
-
-from survey_encounters.models import Question, Answer, Form, QALink
+from hq.models import ReporterProfile
 
 def add_encounter(sender, instance, created, **kwargs): #get sender, instance, created
     """ Adds survey encounters submission from xforms to database """
     # only process newly created forms, not all of them
     if not created: return
-#    print ">>>>>>>>>>> FORMS <<<<<<<<<<<<<<<"
+    print ">>>>>>>>>>> FORMS ;-) <<<<<<<<<<<<<<<"
+    
     # check the form type to see if it is a new sample
     form_xmlns = instance.formdefmodel.target_namespace
     data = instance.formdefmodel.row_as_dict(instance.raw_data)
-    
+
     form = create_form(data)
-    add_data(data, form)
+#    add_data(data, form)
     
 def create_form(data):
     """ Create a form for submitted xform """
-    f_date = data["gfatm_data_assessment_assessmentdate"]
-    
-    region = Region.objects.get(name = data["gfatm_data_region"])
-    district = District.objects.get(name = data["gfatm_data_district"])
-    #TODO: get outlet / create outlet
-    outlet = Outlet.objects.get(name = data["gfatm_data_outlet"])
-    
-    #get user(reporter)
-    alias = sample_data["gfatm_data_username"]
+    print " [[[[ CREATE FORM ]]]]] "
+
+    # TODO: check if outlet is in db else create the outlet
+#    o_name =  data[data_outlet]
+#    if o_name:
+#        outlet = Outlet.objects.get(outlet_name__iexact = o_name)
+#    else:
+#        outlet = Outlet(outlet_name = o_name,
+#                        owner_name = "Aptana",
+#                        point = Point(-7.00, 40.00)
+#                        ).save()
+    print "Outlet -----> %s" % ("outlet",)
+    # Check if the reporter is have a profile
+    alias = sample_data["data_interviewer"] #TODO: get reporter username from jr username tag
     try:
         reporter = Reporter.objects.get(alias__iexact = alias)
         # make sure the reporter have a profile for a domain.
         # TODO: Limit the submission to a domain
         reporter_profile = ReporterProfile.objects.get(reporter=reporter)
         # save a reporter with a profile
-        sample.taken_by = reporter
     except Exception, e:
         raise
-    #save form
-    Form(
-         region = region,
-         district = district,
-         outlet = outlet,
-         survey_user = alias,
-         date_taken = f_date,
-         ).save()
+    
+    print "Reporter -------------> %s" %(reporter,)
+    # create form
+    form =Form(
+                outlet = outlet,
+                survey_user = reporter,
+                date_taken = datetime.now(),
+                ).save()
+    print "----------> %s" % (form,)
     return form
 
 def add_data(data_list, form):   
@@ -72,7 +74,7 @@ def add_data(data_list, form):
                    ).save()
         except Exception, e:
             raise
- 
 
-# Register to receive signals each time a Metadata is saved    
-#post_save.connect(add_encounter, sender=Metadata)
+# testing 
+def test(sender, instance, created, **kwargs):
+    print ">>>>TESTING DJANGO SIGNALS<<<<<"

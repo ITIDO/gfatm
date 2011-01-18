@@ -22,13 +22,17 @@ class Outlet(models.Model):
     owner_name = models.CharField(max_length = 126)
     join_date = models.DateTimeField(default = datetime.now)
     exit_date = models.DateTimeField(null=True, blank=True)
-    strutam = models.CharField(max_length = 126)
-    type = models.ForeignKey(OutletType)
-    village = models.ForeignKey(Village)
+    strutam = models.CharField(max_length = 126, null=True)
+    type = models.ForeignKey(OutletType, null=True)
+    village = models.ForeignKey(Village, null=True)
     point = models.PointField()
     
     objects = models.GeoManager()
     
     def __unicode__(self):
         return '%s' % (self.outlet_name)
-    
+#tel_phone
+#district
+#contacts
+# dispenser name,
+# types; ADDO, DLDB, PHARMACY, HEALTHY CENTER, DISPENSARY, HOSPITAL, 
