@@ -20,8 +20,8 @@ def _get_sort_info(request, default_sort_column, default_sort_descending):
 #
 #
 #from xlrd import open_workbook
-#wb = open_workbook('/home/allen/Desktop/moro.xls')
-#s = wb.sheet_by_index(1)
+#wb = open_workbook('abs_path_to_ur_file.xls')
+#s = wb.sheet_by_index(1) 
 #for row in range(s.nrows):
 #    values = []
 #    for col in range(3,7):

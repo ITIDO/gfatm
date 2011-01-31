@@ -19,19 +19,81 @@ from django.contrib.gis.geos import Point
 #from reporters.models import Reporter
 from hq.models import ReporterProfile
 
+ANSWER_TYPE = (
+               ('yes/no', 'Yes or No'),
+               ('number', 'Number'),
+               ('string', 'Words'),
+               ('refuse_reasons', 'Refusal Reasons'),
+               ('not_restock_reason', 'Not Restocking Reasonds'),
+               ('type_of_supplier', 'Type of Supplier'),
+               ('position', 'Position'),
+               ('attended_addo_options', 'Attended ADDO Response')
+               )
 
+ANSWER_CHOICES = {
+                  'yes/no' : [
+                              "Yes", 
+                              "No", 
+                              "Don't know"
+                              ],
+                  'refuse_reasons' : [
+                                      'Closed temporarily',
+                                      'Closed permanently',
+                                      'Refused',
+                                      'Other',
+                                      ],
+                  
+                  'not_restock_reason' : [
+                                          'Un available',
+                                          'Not preferred by customers',
+                                          'Un profitable',
+                                          'Do not know its existence',
+                                          ],
+                  'type_of_supplier' : [
+                                        'First line distributor',
+                                        'Pharmacy  Wholesaler',
+                                        'Pharmacy',
+                                        'Drug Shop (Baridi)',
+                                        'General Shop',
+                                        'Drug Distributor',
+                                        'ADDO',
+                                        'Other',
+                                        "Don't know"
+                                        ],
+                  'position' : [
+                                'owners',
+                                'Dispenser Pharmaceutical Technicians',
+                                'Relative / spouse',
+                                'Others',
+                                ],
+                  'attended_addo_options' : [
+                                             'Yes',
+                                             'No, more than 2 years ago',
+                                             'No, never participated',
+                                             "Don't Know",
+                                             ]
+                  }
 
 class Question(models.Model):
     '''
         A question asked in the field during the survey
     '''    
     question = models.CharField(max_length = 256)
-    answer_type = models.CharField(max_length = 10,)
+    answer_type = models.CharField(max_length = 256, choices=ANSWER_TYPE)
     xmlPath = models.CharField(max_length = 256)
     date_added = models.DateTimeField(default = datetime.now)
     
     def __unicode__(self):
         return '%s' % (self.question,)
+    
+    def answer(self):
+        qa = QALinker.objects.get(question__pk = self.pk)
+        answer = qa.answer.answer
+        if not self.answer_type == 'number' or not self.answer_type == 'string':
+            index = answer + 1
+            answer = ANSWER_CHOICES[self.answer_type][index]
+        return answer
+        
 
 class Answer(models.Model):
     '''
@@ -78,7 +140,6 @@ def add_encounter(sender, instance, created, **kwargs): #get sender, instance, c
     """ Adds survey encounters submission from xforms to database """
     # only process newly created forms, not all of them
     if not created: return
-    print ">>>>>>>>>>> FORMS ;-) <<<<<<<<<<<<<<<"
     
     # check the form type to see if it is a new sample
     form_xmlns = instance.formdefmodel.target_namespace
@@ -91,35 +152,35 @@ def add_encounter(sender, instance, created, **kwargs): #get sender, instance, c
 def create_form(data):
     """ Create a form for submitted xform """
     # Check if the reporter is have a profile
-    alias = data["data_interviewer"] #TODO: get reporter username from jr username tag
-    consent = data["data_consent_intervieweeconsent"]
+    alias = data["data_username"] #TODO: get reporter username from jr username tag
+    consent = data["data_concent_intervieweeconsent"]
     try:
-        reporter = Reporter.objects.get(alias__iexact = alias)
+        reporter = Reporter.objects.get(alias__iexact = 'mich')
         # make sure the reporter have a profile for a domain.
         # TODO: Limit the submission to a domain
         reporter_profile = ReporterProfile.objects.get(reporter=reporter)
         # save a reporter with a profile
     except Exception, e:
         raise
-    
+
     # check if consent was given or not and process
     in_form = Form()
     if  int(consent) == 1:
         # check if outlet exist
         o_name = data["data_outletname"]
-        outlet = Outlets.objects.get(outlet_name__iexact = o_name)
+        outlet = Outlet.objects.filter(outlet_name__iexact = o_name) #improve search outlets my have same name!!
         # if not create an outlet
-        if outlet == []:
-            outlet = Outlet()
-            outlet.outlet_name = o_name
-            outlet.owner_name = 'Mwenyeduka'
-            outlet.type = data["data_outletType"]
-            outlet.point = Point(-7.00,40.00)
-            outlet.save()
-        in_form.outlet = outlet
-    else:
-        # process deny submissions
-        print "HEREEEEEEE else----"
+        if not outlet:
+            o = Outlet()
+            o.outlet_name = o_name
+            o.owner_name = 'Mwenyeduka'
+#            outlet.type = data["data_outletType"]
+            o.point = Point(-7.00,40.00)
+            o.save()
+            in_form.outlet = o
+        else:
+            o = outlet[0]
+            in_form.outlet = o #should do a better check, now relying that only 1 result is return
     
     in_form.survey_user = reporter
     in_form.date_taken = datetime.now()

@@ -1,0 +1,45 @@
+{% extends base_template %}
+{% load i18n %}
+{% block title %}Reports for {{user.selected_domain}}{% endblock %}
+{% block page_stylesheets %}
+    <link type="text/css" rel="stylesheet" href="/static/reports/stylesheets/style.css" />
+{% endblock %}
+{% block content %}
+    <h2>Distribution Reports</h2>
+    <div id="customreports">
+    <ul>
+        <li><a href="{% url survey_reports.views.distribution_report %}">Number of ACT Distributors in Tanzania</a></li>
+        <li><a href="{% url survey_reports.views.distribution_outlet_report %}">Number of ACT outlets in Tanzania</a></li>
+    </ul>
+   </div>
+   
+   <h2>Availability Reports</h2>
+   <div id="customreports">
+    <ul>
+      <li><a href="">Number and Proportion of outlets with subsidized ACTs in stock</a></li>
+      <li><a href="">Proportion of outlets that have any other (Non Subsidized) ACTs in stock</a></li>
+      <li><a href="">Proportion of outlets that have monotherapies Antimalaria in stock at time of visit</a></li>
+      <li><a href="">Proportion of outlets that have reported stock out in time of visit</a></li>
+    </ul>
+   </div>
+   
+   <h2>Accessibility Reports</h2>
+   <div id="customreports">
+    <ul>
+      <li><a href="">Proportion of Population of Living in area that has access to subsidized ACTs</a></li>
+      <li><a href="">Proportion of population that have access to any of antimalaria medicine</a></li>
+      <li><a href="">Propotion of Populaion that has access to Nationally registred ACTs</a></li>
+      <li><a href="">Median Cost to patient for ful dose of sunsidized ACT</a></li>
+    </ul>
+   </div>
+  
+   <h2>Consuption Reports</h2>
+   <div id="customreports">
+    <ul>
+      <li><a href="">Number of subsidized ACT doses procured</a></li>
+      <li><a href="">Number of subsidized ACT doses sold</a></li>
+    </ul>
+   </div> 
+   
+{% endblock %}
+

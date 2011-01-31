@@ -26,7 +26,7 @@ curl_command = 'curl' #make sure curl is in your path
 use_curl = False
 
 #filename = os.path.join(os.getcwd(), 'test-data', 'intel_reg_new_case_id.xml')
-filename = os.path.join(os.getcwd(), 'test-data', 'GFATM Outlet Release_2011-01-10_07-34-10.xml')
+filename = os.path.join(os.getcwd(), 'test-data', 'test_agree.xml')
 
 domain_name = "GFATM " #"grameen" # "demo"
 content_type = "text/xml"

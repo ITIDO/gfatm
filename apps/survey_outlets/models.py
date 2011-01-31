@@ -22,8 +22,8 @@ class Outlet(models.Model):
     owner_name = models.CharField(max_length = 126)
     join_date = models.DateTimeField(default = datetime.now)
     exit_date = models.DateTimeField(null=True, blank=True)
-    strutam = models.CharField(max_length = 126, null=True)
-    type = models.ForeignKey(OutletType, null=True)
+    strutam = models.CharField(max_length = 126, null=True) 
+    type = models.ForeignKey(OutletType, null=True) # add choices 
     village = models.ForeignKey(Village, null=True)
     point = models.PointField()
     

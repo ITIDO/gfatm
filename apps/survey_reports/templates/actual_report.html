@@ -1,0 +1,38 @@
+{% extends base_template %}
+{% load i18n %}
+{% block title %}Reports{% endblock %}
+{% block page_stylesheets %}
+    <link type="text/css" rel="stylesheet" href="/static/reports/stylesheets/style.css" />
+{% endblock %}
+{% block content %}
+<h2>{{ report }}</h2>
+
+<div id="chw_data">
+  <h3>{{ heading }}</h3>
+  <table>
+      <thead>
+        {% if columns %}
+        {% for col in columns %}
+          <th>{{ col }}</th>
+        {% endfor %}
+        {% endif %}
+      </thead>
+      
+      <tbody>
+     
+     {% if values%}
+     {% for value in values%}
+       <tr class="{% cycle "odd" "even" %}">
+          {% for v in value %}
+          <td>{{ v }}</td>
+          {% endfor %}
+      </tr>
+      {% endfor %}
+      {% endif %}
+      </tbody>
+  </table>   
+  
+</div> 
+   
+{% endblock %}
+
